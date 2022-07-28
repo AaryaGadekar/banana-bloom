@@ -1,4 +1,5 @@
 from transformers import BloomTokenizerFast, BloomForCausalLM
+# from transformers import AutoTokenizer, AutoModel
 import torch
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
@@ -8,15 +9,16 @@ device = "cuda:0" if torch.cuda.is_available() else "cpu"
 def init():
     global model
     global tokenizer
-    model = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
-
+    model = BloomForCausalLM.from_pretrained("bigscience/bloom-350m")
+    # model = AutoModel.from_pretrained("bigscience/bloom-350m")
     # conditionally load to GPU
     if device == "cuda:0":
         print("loading to GPU...")
         model.cuda()
         print("done")
 
-    tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-1b3")
+    # tokenizer = AutoTokenizer.from_pretrained("bigscience/bloom-350m")
+    tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-350m")
 
 
 # Inference is ran for every server call

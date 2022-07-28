@@ -12,6 +12,8 @@ import app as user_src
 user_src.init()
 
 # Create the http server app
+# sanic developer mode
+
 server = Sanic("my_app")
 
 # Healthchecks verify that the environment is correct on Banana Serverless
@@ -34,9 +36,10 @@ def inference(request):
         model_inputs = request.json
 
     output = user_src.inference(model_inputs)
+    # output = user_src.inference(model_inputs)
 
     return response.json(output)
 
 
 if __name__ == '__main__':
-    server.run(host='0.0.0.0', port="8000", workers=1)
+    server.run(host='0.0.0.0', port="8000", workers=1, debug=True)
